@@ -15,7 +15,7 @@ public class GamePanel extends JPanel implements ActionListener {
     static final int SCREEN_HEIGHT = 525;
     static final int UNITS_SIZE = 25;
     static final int DELAY = 175;
-    static final int GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNITS_SIZE;
+
     int playerX;
     int playerY;
     char playerDirection; //R = Right, L = Left, D = Down, U = Up
