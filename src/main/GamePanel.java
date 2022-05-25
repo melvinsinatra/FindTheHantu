@@ -14,7 +14,7 @@ public class GamePanel extends JPanel implements ActionListener {
     static final int SCREEN_WIDTH = 525;
     static final int SCREEN_HEIGHT = 525;
     static final int UNITS_SIZE = 25;
-    static final int DELAY = 175;
+    static final int DELAY = 150;
 
     int playerX;
     int playerY;
@@ -29,6 +29,7 @@ public class GamePanel extends JPanel implements ActionListener {
     int ghostsEliminatedCount;
     boolean running = false;
     boolean ghostsTurn;
+    boolean gameHasStarted = false;
     Timer timer;
 
     public GamePanel() {
@@ -55,6 +56,7 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void draw(Graphics g) {
+
         if(running) {
             //Grid
 //            for(int i = 0; i<SCREEN_HEIGHT/UNITS_SIZE; i++) {
@@ -90,6 +92,14 @@ public class GamePanel extends JPanel implements ActionListener {
             FontMetrics metrics = getFontMetrics(g.getFont());
             String message = "Ghosts Left: " + ghostCount;
             g.drawString(message, (SCREEN_WIDTH - metrics.stringWidth(message))/2, g.getFont().getSize());
+
+            if(!gameHasStarted) {
+                g.setColor(Color.green);
+                g.setFont( new Font("Calibri",Font.BOLD, 24));
+                FontMetrics fontMetrics = getFontMetrics(g.getFont());
+                String startGame = "Press any arrow key to start the game";
+                g.drawString(startGame, (SCREEN_WIDTH - fontMetrics.stringWidth(startGame))/2, (SCREEN_HEIGHT - fontMetrics.stringWidth(startGame)/2));
+            }
         }
 
         else if (!running) {
@@ -222,6 +232,8 @@ public class GamePanel extends JPanel implements ActionListener {
         g.drawString(gameOver, (SCREEN_WIDTH - metrics.stringWidth(gameOver))/2, SCREEN_HEIGHT/2);
     }
 
+
+
     public void youWon(Graphics g) {
         g.setColor(Color.green);
         g.setFont(new Font("Calibri", Font.BOLD, 24));
@@ -251,6 +263,7 @@ public class GamePanel extends JPanel implements ActionListener {
         @Override
         public void keyPressed(KeyEvent e) {
             timer.start();
+            gameHasStarted = true;
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
                     playerDirection = 'L';
