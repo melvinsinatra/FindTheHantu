@@ -232,8 +232,6 @@ public class GamePanel extends JPanel implements ActionListener {
         g.drawString(gameOver, (SCREEN_WIDTH - metrics.stringWidth(gameOver))/2, SCREEN_HEIGHT/2);
     }
 
-
-
     public void youWon(Graphics g) {
         g.setColor(Color.green);
         g.setFont(new Font("Calibri", Font.BOLD, 24));
@@ -262,8 +260,11 @@ public class GamePanel extends JPanel implements ActionListener {
     public class MyKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
-            timer.start();
-            gameHasStarted = true;
+            if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_LEFT
+                || e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                timer.start();
+                gameHasStarted = true;
+            }
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
                     playerDirection = 'L';
